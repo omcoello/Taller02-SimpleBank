@@ -5,7 +5,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Scanner;
+import java.text.SimpleDateFormat;
+
 
 public class Bank {
 	static final int EXIT = 5;
@@ -53,7 +56,8 @@ public class Bank {
              System.out.print("tipo de transaccion: "+ tipo2+"\n");             
              archivo = new FileWriter("Log.txt", true);
              pw = new PrintWriter(archivo);
-             pw.println(tipo2);   
+             String hora2 = getActualDate();
+             pw.println(tipo2+", "+hora2);   
              archivo.close();
              
              
@@ -66,7 +70,8 @@ public class Bank {
              System.out.print("tipo de transaccion: "+ tipo3+"\n");            
              archivo = new FileWriter("Log.txt",true);
              pw = new PrintWriter(archivo);
-             pw.println(tipo3);   
+             String hora3 = getActualDate();
+             pw.println(tipo3+", "+hora3);   
              archivo.close();
              
         break;
@@ -114,6 +119,10 @@ public class Bank {
             System.out.println(u);
         }
         System.out.println("------------------------------------");
+    }
+    
+    public static String getActualDate() {
+    	return new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime());
     }
     
 }
