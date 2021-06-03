@@ -1,7 +1,10 @@
 package com.bank;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Scanner;
+import java.text.SimpleDateFormat;
+
 
 public class Bank {
 	static final int EXIT = 5;
@@ -92,6 +95,10 @@ public class Bank {
             System.out.println(u);
         }
         System.out.println("------------------------------------");
+    }
+    
+    public String getActualDate() {
+    	return new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime());
     }
     
 }
