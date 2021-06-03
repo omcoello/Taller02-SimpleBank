@@ -1,5 +1,9 @@
 package com.bank;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -7,6 +11,8 @@ public class Bank {
 	static final int EXIT = 5;
     static ArrayList<User> users = new ArrayList<>();
     private static Scanner input = new Scanner(System.in);
+    private static FileWriter archivo = null;
+    private static PrintWriter pw = null;    
     public static void initBank(){
         users.add(new User(1,"Usuario1",1,0.0));
         users.add(new User(2,"Usuario2",2,10000.0));
@@ -15,7 +21,7 @@ public class Bank {
 
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         int opcion = 0;
         initBank();
         while(opcion != EXIT){
@@ -23,7 +29,7 @@ public class Bank {
         };
 
     }
-    public static int menu(){
+    public static int menu() throws IOException{
         System.out.println("Banco AspectJ");
         System.out.println("------------------------------------");
         System.out.println("1 - Crear usuario");
@@ -42,12 +48,27 @@ public class Bank {
         case 2:
             System.out.println("Realizar transaccion");
             System.out.println("------------------------------------");
-             moneyMakeTransaction(); 
+             moneyMakeTransaction();
+             String tipo2 = "Transacción";
+             System.out.print("tipo de transaccion: "+ tipo2+"\n");             
+             archivo = new FileWriter("Log.txt", true);
+             pw = new PrintWriter(archivo);
+             pw.println(tipo2);   
+             archivo.close();
+             
+             
         break;
         case 3:
             System.out.println("Retirar dinero");
             System.out.println("------------------------------------");
-             moneyWithdrawal();
+             moneyWithdrawal();             
+             String tipo3 = "Retiro";
+             System.out.print("tipo de transaccion: "+ tipo3+"\n");            
+             archivo = new FileWriter("Log.txt",true);
+             pw = new PrintWriter(archivo);
+             pw.println(tipo3);   
+             archivo.close();
+             
         break;
         case 4:
             System.out.println("Ver Usuarios");
@@ -80,6 +101,7 @@ public class Bank {
         int id = Integer.valueOf(readConsole("Key: "));
         double money = Double.valueOf(readConsole("Dinero a depositar: "));
         users.get(id-1).setMoney(users.get(id-1).getMoney() + money);
+        
     }
     public static void moneyWithdrawal(){
         int id = Integer.valueOf(readConsole("Key: "));
